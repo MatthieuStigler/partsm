@@ -1,3 +1,8 @@
+Version 1.1-2: Matthieu Stigler (30/03/2014)
+-Add test file: tests taken from all examples in help pages
+-Correct bug with p instead of object@p in show(Ftest.partsm)
+-correct bug in stating methods as import, but not importing it. 
+
 Version 1.1: Matthieu Stigler (13/02/2012)
 -bbplot bug: used in plotpdiff, now take code from (deprecated) uroot
 -Rcmdr: remove Rcmdr and Bwidget plugins in /inst
