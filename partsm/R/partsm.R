@@ -651,13 +651,14 @@ setMethod("show", "fit.piartsm",
 )
 
 setMethod("summary", "fit.piartsm",
-  function(object)
+  function(object, digits = max(3L, getOption("digits") - 3L),
+           signif.stars = getOption("show.signif.stars"))
   {
     show(object)
     cat("----\n  Estimates of the non-linear model.\n")
-    print(round(object@nls.parameters, 3)); cat("\n")
-    cat("----\n  Periodically differenced data.\n")
-    print(round(object@pdiff.data, 3)); cat("\n")
+    printCoefmat(object@nls.parameters, digits=digits, signif.stars=signif.stars)
+    cat("\n----\n  Periodically differenced data.\n")
+    print(round(object@pdiff.data, digits=digits)); cat("\n")
   }
 )
 
