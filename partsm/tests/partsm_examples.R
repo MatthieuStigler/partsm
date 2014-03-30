@@ -216,7 +216,9 @@ show(out.LR)
 
 ## 24 step-ahead forecasts in a PIAR(2) model.
 pred.out <- predictpiar(wts=lgergnp, p=2, hpred=24)
+options(digits=4)
 show(pred.out)
+options(digits=7)
 
 ###########################
 ###### summary-methods
@@ -252,16 +254,20 @@ summary(Fsh.out)
 
 ## Fit a PIAR(2) model.
 out.piar <- fit.piar(wts=lgergnp, detcomp=detcomp, p=2)
-summary(out.piar)
+summary(out.piar, digits=2)
 
 ## Fpari.piar.test
 Fpari1.out <- Fpari.piar.test(wts=lgergnp, detcomp=detcomp, p=2, type="PARI1")
+options(digits=3)
 summary(Fpari1.out)
+options(digits=3)
 
 ## Fit a PIAR(2) model with seasonal intercepts.
 out.piar <- fit.piar(wts=lgergnp, detcomp=detcomp, p=2)
-summary(out.piar)
+summary(out.piar, digits=2)
 
 ## Test for a single unit root in a PAR(2) model with seasonal intercepts.
 out.LR <- LRurpar.test(wts=lgergnp, detcomp=detcomp, p=2)
+options(digits=1)
 summary(out.LR)
+options(digits=7)
