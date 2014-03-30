@@ -1,0 +1,11 @@
+acf.ext1            Autocorrelation function for several transformations of the original data
+fit.ar.par          Fit an Autoregressive or Periodic Autoregressive Model
+fit.piar            Fit a Periodically Integrated Autoregressive Model
+Fnextp.test         Test for the Significance of the p+1 Autoregressive Parameters in an AR(p) or PAR(p) Model
+Fpar.test           Test for Periodic Variation in the Autoregressive Parameters
+Fpari.piar.test     Test for a Parameter Restriction in a PAR Model
+Fsh.test            Test for Seasonal Heteroskedasticity
+LRurpar.test        Likelihood Ratio Test for a Single Unit Root in a PAR Model
+plotpdiff           Graphical Representation of the Periodically Differenced Data
+plotpredpiar        Plot of the Out-of-Sample Forecasts in a PIAR Model
+predictpiar         Predictions for a Restricted Periodic Autoregressive Model

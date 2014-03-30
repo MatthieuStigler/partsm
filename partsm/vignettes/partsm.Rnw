@@ -1,0 +1,411 @@
+\documentclass[article]{partsm}
+%% need no \usepackage{Sweave.sty}
+%\VignetteIndexEntry{partsm vignette}
+
+\author{Javier L\'opez-de-Lacalle
+\thanks{I acknowledge Matthieu Stigler the upgrade and maintenance of the package.}
+\\ Universidad del Pa\'is Vasco \\ \email{javlacalle@yahoo.es}}
+\title{Periodic Autoregressive Time Series Models in \proglang{R}: The \pkg{partsm} Package.}
+%
+\Plainauthor{Javier L\'opez-de-Lacalle} %% comma-separated
+\Plaintitle{Periodic Autoregressive Time Series Models in R: The partsm Package.} % without formatting
+\Shorttitle{Periodic Autoregressive Time Series Models in \proglang{R}: The \pkg{partsm} Package.}
+%% a short title (if necessary)  % this will be the header of even pages in the document
+
+%% an abstract and keywords
+\Abstract{
+This introduction to the \proglang{R} package \pkg{partsm} is a (slightly)
+modified version of \cite{Lopez-de-Lacalle:05}.
+
+It is well-known that some of the macroeconomic time series display stochastic trends, moreover, when working with seasonally observed data stochastic seasonal cycles may exist as well. When these components, trend and seasonality, do not evolve independently, traditional differencing filters may not be suitable.
+According to periodic autoregressive time series models, a seasonally varying autoregressive parameters and a periodic differencing filter are proposed for that case. 
+
+This paper focuses on practical issues
+showing the use of the \pkg{partsm} \proglang{R}-package. This package allows the user to
+check for periodicity in the data, fit a periodic autoregressive model of order p, PAR(p), select the periodic autoregressive lag order parameter,  test for periodic integration, fit a periodically integrated autoregressive model up to order 2, PIAR, as well as to perform out-of-sample forecasts.
+}
+\Keywords{Time series, PAR models, periodic integration, \proglang{R}} %% comma-separated, not capitalized
+\Plainkeywords{Time series, PAR models, periodic integration, R} %% without formatting
+
+%% Date
+\Month{April}
+\Year{2012}
+
+%% The address of (at least) one author should be given
+%% in the following format:
+\Address{
+  Javier L\'opez-de-Lacalle.\\
+  Universidad del Pa\'is Vasco.\\
+  E-mail: \email{javlacalle@yahoo.es}.\\
+}
+%% It is also possible to add a telephone and fax number
+%% before the e-mail in the following format:
+%% Telephone: +43/1/31336-5053
+%% Fax: +43/1/31336-734
+
+%% end of declarations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\section[Introduction]{Introduction}
+
+It is well-known that some of the macroeconomic time series display stochastic trends, moreover, when working with seasonally observed data stochastic seasonal cycles may exist as well. When these components, trend and seasonality, do not evolve independently, traditional differencing filters may not be suitable.
+According to periodic autoregressive time series models, a seasonally varying autoregressive parameters and a periodic differencing filter are proposed for that case.
+For a review of this literature see \citet{Franses:96}, \citet{Franses-Paap:04}, and references therein.
+
+This paper focuses on practical issues 
+showing the use of the \pkg{partsm} \proglang{R}-package. This package allows the user to check for periodicity in the data, fit a periodic autoregressive model of order p, PAR(p), select the periodic autoregressive lag order parameter, test for periodic integration, fit a periodically integrated autoregressive model up to order 2, PIAR, as well as to perform out-of-sample forecasts.
+
+The remaining of the paper is organized as follows. Section \ref{Sreview} briefly reviews the statistical issues the \pkg{partsm} \proglang{R}-package is concerned, namely periodic autoregressive models and periodic integration. Section \ref{Sdesc} describes the package. Section \ref{Sexample} puts into practice the tools implemented in the package showing how to use them and interpreting the results accordingly. 
+%Some known bugs are mentioned in Section \ref{Sbugs}.
+
+\section[Theoretical overview]{Theoretical overview} \label{Sreview}
+
+This section reviews the main theoretical concerns entailed in the process of fitting periodic models and testing for a unit root in PAR models. To have a further insight into this models see \citet{Franses:96}, \citet{Franses-Paap:04}, and references therein. PAR models are intended for seasonally obeserved data, particularly quarterly and monthly data. To save space, hereafter we will consider quarterly data, $S=4$.
+
+\subsection[Notation and representation of PAR models]{Notation and representation of PAR models}
+
+The \textit{univariate representation} of a PAR(p) model is as follows,
+
+\begin{equation}
+\label{PAR}
+y_t = \phi_{1s} y_{t-1} + ... + \phi_{ps} y_{t-p} + \epsilon_t, \quad \epsilon_t \sim iid (0,1),
+\end{equation}
+%
+for $s=1,...,4$, for $t=1,2,...,n$, where $n$ is the number of observations. Hence, the autoregressive parameters vary with the season for each lag. 
+
+Since a PAR(p) entails four different AR(p) models, one for each season, it is useful to rewrite (\ref{PAR}) as the \textit{multivariate representation} or \textit{vector of quarters representation}.
+%
+\begin{equation}         
+\label{PARVQ}
+\Phi_0\,Y_{s,T} = \Phi_1\,Y_{s,T-1} + ... + \Phi_P\,Y_{s,T-P} + \epsilon_T, \quad \epsilon_T \sim iid (0,1),
+\end{equation}
+%
+where $\Phi_0, \Phi_1,...,\Phi_P$ are $(4\times4)$ parameter matrices with the parameters in (\ref{PAR}) as follows:
+%
+\begin{eqnarray*}
+\Phi_0\,(i,j) &=& 1 \quad if \quad i=j \\
+              &=& 0 \quad if \quad j > i \\
+              &=& -\phi_{i-j,i} \quad if \quad j < y \\
+\Phi_k\,(i,j) &=& \phi_{i+4k-j,i},
+\end{eqnarray*}
+%
+for $i,j=1,2,3,4$ and $k=1,2,...,P$. The univariate model of order $p$ turns into a multivariate model of order $P=1+[(p-1)/4]$, where $[x]$ is the integer part of $x$.
+
+Notice that in (\ref{PAR}) each lag leads to previous observations in the seasonally observed data, whereas in (\ref{PARVQ}) lags have effect on the anually observed data in each season. That is, $y_{t-1}$ is the observation inmediately previous to $y_t$, and $Y_{s,T-1}$ is the observation in season $s$ previous to the year $T$.
+
+Finally, if the roots of the factorized AR(p) model related to each season are all real values, the PAR(p) model can be represented as
+%
+\begin{eqnarray} 
+y_t-\alpha_s\,y_{t-1} &=& \beta_{1s}\,(y_{t-1} - \alpha_{s-1}\,y_{t-2}) + ... + \\ \nonumber
+&+& \beta_{(p-1)s}\,(y_{t-(p-1)} - \alpha_{s-(p-1)}\,y_{t-p}) + \epsilon_t, \quad \epsilon_t \sim iid (0,1).
+\end{eqnarray}
+%
+called the \textit{periodically differenced form of} (\ref{PAR}).
+
+\subsection[Periodic integration]{Periodic integration} \label{Sreview.pi}
+
+Basically, a time series with a unit root, $y_t$, is periodically integrated if there exist 
+some $\alpha_s$ for $s=1,2,...,4$, in such a way that the transformed series $(1-\alpha_s\,B)\,y_t$ does not contain a unit root, where $B$ is the backward operator. 
+The definition of \citet{Franses:96} is transcribed below.
+%
+\begin{quotation}
+A quarterly time series $y_t$ is said to be \textit{periodically integrated of order 1} [PI] when the differencing filter $(1-\alpha_s\,B)$ is needed to remove the stochastic trend from $y_t$, where $\alpha_s$ are seasonally varying parameters with the property that $\alpha_1\alpha_2\alpha_3\alpha_4=1$ and $\alpha_s \neq \alpha$ for all $s=1,2,3,4$.
+\end{quotation}
+
+At present, the package \pkg{partsm} only allow to estimate periodically integrated autoregressive models up to order 2\footnote{PAR models use to be more parsimonious models and a first or second order model may be suitable for the data. In \citet{Franses:96}, only one out of the eleven series analysed required a higher order PAR model.}. Taking the periodically differenced representation, the following model can be estimated by non-linear least squares.
+
+\begin{equation}    
+\label{PIAR2}
+y_t - \alpha_s y_{t-1} = \beta_s (y_{t-1} - \alpha_{s-1} y_{t-2}) + \epsilon_t, \quad \epsilon_t \sim iid (0,1),
+\end{equation}
+%
+under the non-linear restriction $\prod_{s=1}^{4} \alpha_s = 1$ for $s=1,...,4$. Obviously, for a first order PIAR process $\beta$ parameters are equal to zero. This model can be estimated by non-linear least squares.
+
+Note that the restriction above is fulfilled in these particular cases, among others. When $\alpha_s=1$ for $s=1,2,3,4$, and $\alpha_s=-1$ for $s=1,2,3,4$. 
+The former case give rise to the $(1-L)$ differencing filter, whereas the latter entails the $(1+L)$ differencing filter. 
+%
+Therefore, the restriction may involve the long run unit root 1, or the seasonal unit root -1, or neither of them.
+
+When the hypothesis above cannot be rejected it is said that the process is a \textit{PAR process for a I(1) times series}, PARI. Otherwise, the PAR model is known as a \textit{periodically integrated AR model}, PIAR, and the periodic differencing filter is obtained from the $\alpha_s$ estimates in equation (\ref{PIAR2}).
+
+In Section \ref{Sexample} we will see how to carry out this analysis following a common strategy for the empirical analysis. First, we will take a look at the package we will use for it.
+
+\section[The partsm package]{The \pkg{partsm} package} \label{Sdesc}
+
+\subsection[Description]{Description}
+
+This section documents the \pkg{partsm} package version 1.0 built on the \proglang{R} language and environment for statistical computing and graphics \citep{Chambers:98, Rproject}. The package performs some of the relevant tests and models for fitting periodic autoregressive time series model introduced in the previous section.
+
+The package is distributed under the General Public License [GPL] version 2 or newer. The terms of this license are in a file called COPYING which you should receive with \proglang{R}.  After reading the terms of the license, the user will understand that the datasets and software are provided in good faith, but the author does not warrant their accuracy nor can be held responsible for the consequences of their use. %It is the author's understanding that the dataset files \file{partsm/data/*.rda} are not copyright.
+
+The source code and binaries of the package are available at CRAN (\url{http://www.cran.r-project.org/}). To add it as a package copy the binaries in the subdirectory \file{library} where \proglang{R} is installed\footnote{Type \code{R.home()} in an \proglang{R}-console to find out the home directory.}. Alternatively, download the package source and install it with \code{R CMD INSTALL partsm$\_$1.0.tar.gz}. To install it from an \proglang{R}-console type \code{install.packages("partsm")} and select a mirror near to your location.
+
+\subsection[Classes and methods]{Classes and methods}
+% basado en S4 classes (citar Chambers ver libro Venables Ripley 2002) containing useful information for some methods, show, summary, and functions.
+
+To store the relevant information provided by the implemented functions, the following classes are defined: \code{fit.partsm} and \code{fit.piartsm} contain the information from a fitted AR, PAR, or PIAR model; \code{Ftest.partsm} and \code{LRur.partsm} store the information from the statistical tests in the package; and \code{pred.piartsm} contains information on a PIAR model forecasts. For more information, see the standard help pages of the package\footnote{A \file{pdf} version is available in the \file{partsm/doc} subdirectory.}
+
+Likewise, some methods are defined for objects of the classes cited above. To display the information in each object, the \code{show} method displays the main results in a friendly format, whereas \code{summary} extends the information provided by \code{show}. To build the matrices for the multivariate representation, the \code{PAR.MVrepr} method can be applied on objects of class \code{fit.partsm} or \code{fit.piartsm}.
+
+
+%%% Comment Matthieu: removed as Rcmdr not supported anymore
+% \subsection[Interface via the Rcmdr]{Interface via the \pkg{Rcmdr}}
+% 
+% An easy to use interface can be added via the \pkg{Rcmdr} package\footnote{The \pkg{partsm} add-in has been checked for the version 1.0-2 of \pkg{Rcmdr}.} \citep{Rcmdr}. For further information on the \pkg{Rcmdr} see the documentation provided with it in the \file{Rcmdr/doc} subdirectory \citep{Fox:05}.
+% 
+% To install the \pkg{partsm} add-in for the \pkg{Rcmdr} copy the file \file{partsm/R-cmdr/Rcmdr-partsm.R} in the \file{Rcmdr/etc} subdirectory. This file contains functions for launching the corresponding dialog boxes. To add the menus, copy the text in the file \file{partsm/R-cmdr/Rcmdr-menus.txt} in the desired place inside the file \file{Rcmdr/etc/Rcmdr-menus.txt}, for example after the \code{Tools} menu\footnote{After a line similar to `\code{item topMenu cascade "Tools" toolsMenu.}'}.
+% 
+% For the package to be available, the item \code{Load partsm} must be first clicked in the \code{partsm} menu. In this version, the object to which the functions can be applied must be of class \code{ts}, that is, time series. However, the \pkg{Rcmdr} works with data frames objects. The dialog boxes as well as the functions for \code{partsm} automatically detect all the \code{ts} objects in the working space, hence, there is no need to have an active data set available. In addition, the data in \pkg{partsm} can be loaded from the \code{Data - Data in packages - Read data set from an attached package} menu, ignoring the error message for the functions regarding the \code{partsm} menu.
+% 
+% Finally, the user must bear in mind that, in this version, the interface does not allow to apply all the functions and all the arguments either.
+
+\section[Examples and applications]{Examples and applications} \label{Sexample}
+
+This Section complements the standard help pages provided with the package carrying out an entire application. The use and interpretation of the functions implemented in the package is described following the same steps as in a real application, devoting a subsection for each one of them. 
+
+It is worth describing first one of the arguments that will appear in most of the functions. The argument called \code{detcomp} refers to the deterministic components to include in the model. Three types of regressors can be included: regular deterministic components, seasonal deterministic components, and any regressor variable previously defined by the user. This argument must be a list object with the following elements:
+\begin{itemize}
+\item \code{regular=c(0,0,0)}, if the first and/or second element are set equal to 1, it indicates that an intercept, and/or linear trend, respectively, are included. The third element in \code{regular} is a vector indicating which seasonal dummies should be included. If no seasonal dummies are desired it must be set equal to zero. For example, \code{regular=c(1,0,c(1,2,3))} would include an intercept, no trend, and the first three seasonal dummies.
+\item \code{seasonal=c(0,0)}, if an element is set equal to 1, it indicates that seasonal intercepts, and/or seasonal trends, respectively, are included in the model.
+\item \code{regvar=0}, if none regressor variables are considered, this object must be set equal to zero, otherwise, the names of a matrix object previously defined with the desired regressors by columns should be indicated.
+\end{itemize}
+
+We will take for the examples below the logarithms of the Real Gross Domestic Product in Germany. This time series, along with the others provided with the package, is analysed in \citet{Franses:96}. Let's start loading the package and the data.
+%
+<<>>=
+library(partsm)
+data("gergnp")
+lgergnp <- log(gergnp, base=exp(1))
+@
+
+\subsection[Model order selection]{Model order selection}
+
+The first issue we will deal with is the selection of the order for the periodic autoregressive model. The function \code{Fnextp.test} performs a test for the significance of prospective lag parameters of order $p+1$ in an AR(p) or PAR(p) model. It is performed as an $F$-statistic that sets the parameters of order $p+1$ equal to zero. We will use this statistic and the Akaike's [AIC] and Schwarz's [BIC] information criteria to select the autoregressive order. The code below computes these statistics for PAR models of order ranged between 1 and 4.
+
+The function \code{fit.ar.par} fits a PAR model with seasonal intercepts and stores the results in the \code{lmpar} object of class \code{fit.partsm}. Then, the AIC and BIC statistics are computed by means of the function \code{AIC} available in the \pkg{base} \proglang{R}-package. 
+
+Finally, the null hypothesis $\phi_{(p+1),s}=0$ is checked with \code{Fnextp.test}. The $F$-statistics and the correspondig $p$-values are stored in \code{Fnextp} and \code{Fpval}, respectively. These statistics are computed for PAR models with seasonal intercepts. 
+
+<<>>=
+detcomp <- list(regular=c(0,0,0), seasonal=c(1,0), regvar=0)
+aic <- bic <- Fnextp <- Fpval <- rep(NA, 4)
+for(p in 1:4){
+  lmpar <- fit.ar.par(wts=lgergnp, detcomp=detcomp, type="PAR", p=p)
+  aic[p] <- AIC(lmpar@lm.par, k=2)
+  bic[p] <- AIC(lmpar@lm.par, k=log(length(residuals(lmpar@lm.par))))
+  Fout <- Fnextp.test(wts=lgergnp, detcomp=detcomp, p=p, type="PAR")
+  Fnextp[p] <- Fout@Fstat
+  Fpval[p] <- Fout@pval
+}
+@
+
+To save space, the results of the code 
+are reported in Table \ref{TselecP}. PAR parameters of order 2 are significant, whereas, lag parameters up to order 4th appear to be equal to zero. Furthermore, the AIC and BIC criteria reach the lowest value for a second order model. Therefore, we will analyse the properties of a second order PAR model with seasonal intercepts 
+for the \code{lgergnp} time series.
+
+\begin{table}[ht]
+\centering \caption{Periodic autoregressive order selection}
+\label{TselecP}
+\begin{tabular}{llcccc} \\
+\hline \hline
+Criterion && \multicolumn{4}{c}{Periodic autoregressive order} \\
+\cline{3-6} && 1 & 2 & 3 & 4 \\
+\hline      
+AIC && $-661.60$ & $-680.89$ & $-669.84$ & $-661.54$ \\
+BIC && $-636.30$ & $-644.44$ & $-622.31$ & $-603.00$ \\   
+$F(\phi_{p+1,s}=0)$ && $8.54$ & $0.80$ & $1.35$ & $2.91$ \\
+\multicolumn{1}{c}{$p$-value} && $0.00$ & $0.53$ & $0.26$ & $0.03$ \\
+\hline \hline
+\end{tabular}
+\end{table}
+
+\subsection[Test for periodic variation in the autoregressive parameters]{Test for periodic variation in the autoregressive parameters}
+
+Once a PAR model has been defined, we can check for periodicity in the autoregressive parameters of the model. Following the notation in (\ref{PAR}), the function \code{Fpar.test} performs an $F$-test for the null hypothesis of non-peridodicity, $\phi_{is}=\phi_i$ for $s=1,2,...,4$ and $i=1,2,...,p$.
+
+When the null hypothesis is imposed an AR(p) is estimated, whereas in the alternative a PAR(p) model is fitted. Then, based on the residual sum of squares of each model, the $F$-statistic is computed. When four seasonal intercepts are included the statistic follows an $F$-distribution with (3\,p, n-(4+4\,p)) degrees of freedom, where $n$ is the number of observations.
+   
+<<>>=
+dcsi <- list(regular=c(0,0,0), seasonal=c(1,0), regvar=0)
+out.Fparsi  <- Fpar.test(wts=lgergnp, detcomp=dcsi, p=2)
+show(out.Fparsi)
+dcsit <- list(regular=c(0,0,0), seasonal=c(1,1), regvar=0)
+out.Fparsit <- Fpar.test(wts=lgergnp, detcomp=dcsit, p=2)
+show(out.Fparsit)
+@
+    
+The results of the code above show that periodicity is not rejected, therefore, the test corroborates that a periodic model fits better to the data rather than an AR model, which is constrained to seasonally constant parameters. With regard to the so-called deterministic components, the reader can check that seasonal trends can be left out in the PAR(2) model. For it, type \code{summary(out.Fparsit)} and check the $t$-statistics and $p$-values in the model fitted for the alternative hypothesis for the parameters denoted as \code{MDT..SeasTrnd.1:4}.
+
+\subsection[Diagnostic for the fitted PAR model]{Diagnostic for the fitted PAR model}
+
+The function \code{Fsh.test} performs an $F$-statistic to check whether seasonal heteroskedasticity exist in the residuals of the fitted model, in this case, a PAR(2) model with seasonal intercepts.
+
+<<>>=
+par2 <- fit.ar.par(wts=lgergnp, type="PAR", p=2, detcomp=detcomp)
+Fsh.out <- Fsh.test(res=residuals(par2@lm.par), s=frequency(lgergnp))
+show(Fsh.out)
+@
+
+Results in the code above show that seasonal heteroskedasticity is rejected at the 5\% significance level. This analysis is very limited to validate the model and the user is suggested to carry out complementary tests such as Ljung-Box test for autocorrelation, \code{Box.test}; Jarque-Bera test for normality, \code{jarque.bera.test}; or \code{runs.test} for randomness\footnote{The first function is available in the \pkg{base} package provided with the standard distribution of \proglang{R}. The other functions can be found in the package called \pkg{tseries}.}. Nevertheless, this analysis is beyond the scope of this paper and we will move on to analyze some properties of the selected model for the \code{lgergnp} time series.
+
+\subsection[Eigenvalues of the estimated Gamma equiv Phi_0^{-1}Phi_1 matrix]{Eigenvalues of the estimated $\Gamma \equiv \Phi_0^{-1}\Phi_1$ matrix}
+
+Taking the multivariate representation, as in equation (\ref{PARVQ}), we can get the eigenvalues of the estimated $\Gamma \equiv \Phi_0^{-1}\Phi_1$ matrix. These eigenvalues provide a first 
+view on the prospective unit roots.  
+
+The function \code{PAR.MVrepr} applied on the \code{out.par} object of class \code{fit.partsm} below, shows the matrices defined is Secion \ref{Sreview} for the multivariate representation and some complementary information. 
+
+<<>>=
+out.par <- fit.ar.par(wts=lgergnp, type="PAR", detcomp=detcomp, p=2)
+out.MV <- PAR.MVrepr(out.par)
+out.MV
+@
+
+There is only one eigen value of the $\Gamma \equiv \Phi_0^{-1}\Phi_1$ matrix close to 1, hence, it seems that there is a single unit root . Furthermore, since this value
+
+There are not complex eigen values in the $\Gamma \equiv \Phi_0^{-1}\Phi_1$ matrix. It seems to exist a single unit root in the model. Furthermore, the eigenvalue close to 1 suggests that it may exist the long run unit root 1. We will take again a look at this representation and will discuss the remaining of the output of the function.
+
+\subsection[Test for a single unit root]{Test for a single unit root}
+
+The next step is to carry out formal tests to check whether a unit root exists. As it has been mention in Section \ref{Sreview.pi}, a PAR model contains a unit root if $\prod_{s=1}^{4} \alpha_s = 1$. We have also noticed that this restriction is satisfied in two particular cases, when $\alpha_1$, $\alpha_2$, $\alpha_3$, and $\alpha_4$ are either 1 or -1. In these cases the periodic filter collapses into 
+the filter related to the long run unit root 1, $(1-B)$, and to the seasonal unit root -1, $(1+B)$, respectively, and the model is known as a PAR process for a I(1) time series, PARI.
+
+In other cases in which the restriction $\alpha_1\alpha_2\alpha_3\alpha_4=1$ 
+is fulfilled, the series is said to be guided by a periodically integrated AR process, PIAR. Then, the periodically differencing filter is $(1-\alpha_s\,B)$ for $s=1,2,...,4$, where $\alpha_s$ are inferred from the data by fitting the model (\ref{PIAR2}).
+
+Taking into account these remarks, and as \citet{Franses:96} suggests, it is a wise analysis to test first for the non-linear restriction $\prod_{s=1}^4\,\alpha_s=1$. If this hypothesis cannot be rejected the time series contains a unit root. To see whether the process is a PARI process with the long run seasonal unit root 1, or the seasonal unit root -1, or a PIAR process, the following hypothesis can be checked\footnote{Note that only three restrictions are checked, since $\alpha_s=1 \,\mbox{or} -1$ just for $s=1,2,3$ entails either $\alpha_4=1$ or $\alpha_4=-1$.},
+%
+$$H0: \alpha_s = 1 \quad \mbox{for}\,\, s=1,2,3,$$
+$$H0: \alpha_s = -1 \quad \mbox{for}\,\, s=1,2,3.$$ 
+
+The function \code{LRurpar.test} performs a likelihood ratio test for the first step we desire to check. A one-side statistic is also computed as $sign(\prod_{s=1}^{4} \alpha_s - 1) * LR^{1/2}$, where $\hat{\alpha}$ are the periodic differencing filter parameters estimated under the alternative. According to this statistics, the results of the code shows that it cannot be rejected a unit root.
+
+<<>>=
+out.LR <- LRurpar.test(wts=lgergnp, detcomp=detcomp, p=2)
+show(out.LR)
+@
+
+Now it is worth checking whether $\alpha_s$ for $s=1,2,3$, can be either $1$ or $-1$. The corresponding $F$-statistic for the PAR(2) model with seasonal intercepts is computed by \code{Fpari1.out}. The first hypothesis is considered when \code{type="PARI1"} is selected. According to the results below, this hypothesis, i.e. the long run unit root 1 is rejected.
+
+<<>>=
+Fpari1.out <- Fpari.piar.test(wts=lgergnp, detcomp=detcomp, p=2, type="PARI1")
+show(Fpari1.out)
+@
+
+The reader can check that the seasonal unit root -1 is rejected as well, as we could expect allowing for the eigen values of the estimated matrix $\Phi0^{-1}\,\Phi_1$. For it, just select \code{type="PARI-1"}.
+
+\subsection[Autocorrelation function for several transformations of the original data]{Autocorrelation function for several transformations of the original data}
+
+In this subsection we will take a look at the nonperiodic autocorrelation function. The function \code{acf.ext1} computes the ACF for several transformations of the data\footnote{See the standard help pages to see what transformations are considered.}. Table \ref{Tacf} shows the ACF of the original data, the first differenced seriesand the periodically differenced series, removing four seasonal intercepts in the las two cases. According to the results is sections above other transformations are not worth considering. 
+
+\begin{table}[ht]
+\begin{minipage}{\textwidth}
+\centering \caption{Estimated autocorrelation function for several transformations of the original data}
+\label{Tacf}
+\begin{tabular}{lrlrlrl} \\
+\hline \hline  
+    & \multicolumn{6}{c}{Transformations of the original data, $y_t$
+\footnote{ The following transformations are considered:
+$y_t$: Original series;
+$\Delta\,y_t-\hat{\delta_s}$: residuals of the first differences on four seasonal dummy variables;
+$(1-\hat{\alpha}_s\,B)\,y_t-\hat{\delta_s}$: residuals of the periodic differences on four seasonal dummy variables.
+}
+} \\ \cline{2-7}
+Lag & \multicolumn{2}{c}{$y_t$} & \multicolumn{2}{c}{$\Delta\,y_t-\hat{\delta_s}$} 
+    & \multicolumn{2}{c}{$(1-\alpha_s\,B)\,y_t-\hat{\delta_s}$} \\
+\hline
+0 & $1.00$ & *** &  $1.00$  & *** & $1.00$  & *** \\
+1 & $0.95$ & *** &  $-0.15$ &   . & $-0.12$ &     \\
+2 & $0.90$ & *** &  $-0.47$ & *** & $-0.20$ &   * \\
+3 & $0.89$ & *** &  $-0.08$ &     & $0.00$  &     \\
+4 & $0.89$ & *** &  $0.71$  & *** & $0.37$  & *** \\
+5 & $0.84$ & *** &  $-0.15$ &   . & $-0.17$ &   . \\
+6 & $0.80$ & *** &  $-0.42$ & *** & $-0.10$ &     \\
+7 & $0.79$ & *** &  $-0.05$ &     & $0.06$  &     \\
+8 & $0.78$ & *** &  $0.54$  & *** & $0.02$  &     \\
+9 & $0.74$ & *** &  $-0.08$ &     & $-0.07$ &     \\
+10 & $0.70$ & *** & $-0.40$ & *** & $-0.07$ &     \\
+11 & $0.69$ & *** & $-0.06$ &     & $0.03$  &     \\
+12 & $0.68$ & *** & $0.49$  & *** & $0.03$  &     \\
+\textit{s.e. \footnote{Standard error calculated as $1/n^{1/2}$.}} 
+           & $\mathit{0.09}$ && $\mathit{0.09}$ && $\mathit{0.09}$ \\
+\hline \hline
+\end{tabular}
+\footnote[0]{Significance codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1.}
+\end{minipage}
+\end{table}
+
+The ACF of the original series shows a clearly long-memory behaviour, since autocorrelations are significant for high orders. It can also be observed that the periodically differenced series performs better than the first differencing filter, since the latter does not remove the stochastic behaviour.
+
+The periodically differenced series and the corresponding seasonal path are displayed by \code{plotpdiff}. This function applies on object of class \code{fit.piartsm} as \code{out.piar} built above. Figure \ref{Fpddata} shows that the periodic differencing filter success in removing the stochastic behaviour, since the seasonal paths (at the bottom of the Figure) are parallel to each other and do not display trending behaviour.
+
+\subsection[Time varying impact of accumulation of shocks]{Time varying impact of accumulation of shocks} 
+
+The $\Phi_0$ and $\Phi_1$ matrices can be used to compute the impact of accumulation of the shocks $\epsilon_t$ defined as $\Gamma\,\Phi_0^{-1}$, where $\Gamma$ is $\Phi_0^{-1} \Phi_0$. That row in which the values of the impact matrix are the highest, entails that the corresponding season undergoes more severe impacts from the accumulation of all shocks. Hence, it is more likely to display fluctuations in the stochastic trend. Likewise, the column with the highest values is related to the season that has the largest long-run impact. Put in other words, the impact matrix allow the practitioner to get an idea about how the stochastic trend and the seasonal fluctuations are related.
+
+To derive those matrices, the model (\ref{PIAR2}) is estimated with \code{fit.piar} is used. This function requires some values to initialize the non-linear estimator. By default, initial values are computed for the non-linear modeal. However, in this version there may be cases in which the estimates do not converge, giving an error message. In this case, a numeric vector with initial values guessed by the user can be included. The code below let \code{fit.piar} to compute initial values, hence, there is no need to include a vector called \code{initvalues} as an argument.
+
+<<>>=
+out.piar <- fit.piar(wts=lgergnp, detcomp=detcomp, p=2)
+out.MV <- PAR.MVrepr(out.piar)
+out.MV
+@
+%<<pddata, fig=TRUE, echo=FALSE, height=4.5, width=5>>=
+\begin{figure}[ht]
+\begin{center}
+\caption{\label{Fpddata} Periodically differenced data and seasonal paths}
+<<pdiffplot, fig=TRUE, echo=FALSE>>=
+plotpdiff(out.piar)
+@
+\end{center}
+\end{figure}
+
+For the series \code{lgergnp}, the row with the highest values is the fourth column. This means that the stochastic trend is more likely to undergo changes in the fourth quarter. Reading the impact matrix by columns, the one with the highest is the third column, hence, the third quarter is more sensitive to changes in the stochastic trend.
+
+Obviously, the results above also show that the PIAR model contains a root that is exactly equal to 1 because that is precisely the restriction imposed in the parameters of the model. The other slots of the output not cited here are matrices for internal use when making forecast in a PIAR model.
+
+\subsection[Out-of-sample forecasts]{Out-of-sample forecasts}
+
+The function \code{predictpiar} makes prediction based on PIAR model of order up to 2. By default seasonal intercepts are included. This function computes one-year-ahead forecasting on the basis of the multivariate representation. The forecast for the year $T+$ is $Y_{T+1} = \Phi_0^{-1}\,\mu + \Phi_0^{-1}\,\Phi_1\,Y_T$. The confidence intervals are computed deriving the multivariate moving averages representation from the matrices for the multivariate PIAR model. 
+
+The code below peforms 24 ahead forecasts in the PIAR(2) model. For programming convenience, the number of forescasts, \code{hpred}, must be a multipple of the periodicity of the data. The output of this function provides an object of class \code{pred.piartsm} containing the forecast, the standard errors, the upper and lower 95 per cent confidence bound, as well as the input, i.e., the original data, the order of the model, and the number of predictions.
+
+<<>>=
+out.pred <- predictpiar(wts=lgergnp, p=2, hpred=24)
+show(out.pred)
+@
+
+Remember that the data are scaled in logarithms, hence, for the results to be interpreted, the original scale must be set. The code below makes this task and plots a graphic with the forecast and confidence intervals displayed in Figure \ref{Fpred}.
+
+<<>>=    
+out.pred@wts <- exp(1)^out.pred@wts
+out.pred@fcast <- exp(1)^out.pred@fcast
+out.pred@ucb <- exp(1)^out.pred@ucb
+out.pred@lcb <- exp(1)^out.pred@lcb
+plotpredpiar(out.pred)
+@
+
+% <<predplot, fig=TRUE, echo=FALSE, height=4.5, width=5>>=
+\begin{figure}[ht]
+\begin{center}
+\caption{\label{Fpred} Forecast and confidence intervals}
+<<predplot, fig=TRUE, echo=FALSE>>=
+plotpredpiar(out.pred)
+@
+\end{center}
+\end{figure}
+
+%\section[Known bugs]{Known bugs} \label{Sbugs}
+%\begin{itemize}
+%\item \code{fit.piar} function may give an error message similar to \code{Error in nls(form.rpar, start = nlsinit, trace = FALSE) : step factor 0.000488281 reduced below} $\quad$ \code{'minFactor' of 0.000976562}. The reason for it might be that the initial values selected for performing non-linear least squares are too far from converge. Other alternatives (not available at user level) should be considered for it.
+%\end{itemize}
+
+%If you experiment any bug or pitfalls using \pkg{partsm}, or have some improvement or comment to suggest, please report it to \email{javlacalle@yahoo.es}.
+
+%\section[Concluding remarks]{Concluding remarks} \label{Sconcl}
+
+\clearpage  % tambien para meter tablas, figuras dentro de su seccion
+\bibliography{partsm.bib}
+
+\end{document}

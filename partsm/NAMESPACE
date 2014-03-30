@@ -1,0 +1,8 @@
+
+export(acf.ext1, fit.ar.par, fit.piar, Fnextp.test, Fpar.test, Fpari.piar.test, Fsh.test,
+       LRurpar.test, plotpdiff, plotpredpiar, predictpiar)
+
+exportClasses("fit.partsm", "fit.piartsm", "Ftest.partsm", "LRur.partsm", "MVPAR",
+              "MVPIAR", "pred.piartsm")
+
+exportMethods("show", "summary", "PAR.MVrepr")

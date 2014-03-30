@@ -1,0 +1,8 @@
+Version 1.1: Matthieu Stigler (13/02/2012)
+-bbplot bug: used in plotpdiff, now take code from (deprecated) uroot
+-Rcmdr: remove Rcmdr and Bwidget plugins in /inst
+-Help files: change encoding
+-Help files: add help file of PAR.MVrepr
+-Vignette: Change encoding, remove part on Rcmdr
+
+Version 1.0-1: Javier Lopez-de-Lacalle (3/9/2005)
