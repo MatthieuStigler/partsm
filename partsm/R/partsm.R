@@ -240,7 +240,7 @@ Fsh.test <- function(res, s)
       Fstat=Fsh, df=df, pval=pval, pvl=pvl, h0md=lm1, hamd=lm2)
 }
 
-##~ Representación posible si las raíces del modelo en forma VQ son reales (ver).
+##~ Representaci?n posible si las ra?ces del modelo en forma VQ son reales (ver).
 fit.piar <- function(wts, detcomp, p, initvalues=NULL)
 {
   if(p > 2)
@@ -428,7 +428,7 @@ LRurpar.test <- function(wts, detcomp, p)
   ##~ list(LR=LR, LRtau=LRtau)
 }
 
-##~ Hacer predictpiar usando métodos para cada parte, PAR.MVrepr, Omegas,...
+##~ Hacer predictpiar usando m?todos para cada parte, PAR.MVrepr, Omegas,...
 predictpiar <- function(wts, p, hpred)
 {
   t0 <- start(wts)
@@ -628,7 +628,7 @@ setMethod("summary", "fit.partsm",
   }
 )
 
-##~ Añadir slot con detcomp (.Rd), y poner en la primera línea de cat.
+##~ A?adir slot con detcomp (.Rd), y poner en la primera l?nea de cat.
 setMethod("show", "fit.piartsm",
   function(object)
   {
@@ -699,8 +699,8 @@ setMethod("show", "Ftest.partsm",
       switch(object@test.label,
         "F-PARI1"  = H0cat <- "long run unit root 1",
         "F-PARI-1" = H0cat <- "seasonal unit root -1")
-      cat("  Null hypothesis: PAR(", p, ") for a series with the", H0cat, "\n")
-      cat("  Alternative hypothesis: Periodically integrated AR(", p, "). \n\n")
+      cat("  Null hypothesis: PAR(", object@p, ") for a series with the", H0cat, "\n")
+      cat("  Alternative hypothesis: Periodically integrated AR(", object@p, "). \n\n")
     }
 
     cat("  F-statistic:", round(object@Fstat, 2), "on", object@df[1], "and", object@df[2], "DF,", "p-value:", object@pval, object@pvl, "\n\n")
