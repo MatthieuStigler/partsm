@@ -58,7 +58,8 @@
       out <- acf.ext1(wts=lgergnp, transf.type="orig",
                       type="correlation", lag.max=12, showcat=TRUE, plot=FALSE)
 
-      out <- acf.ext1(wts=lgergnp, transf.type="perdiffsd", perdiff.coeff = c(1.004, 0.981, 1.047, 0.969),
+      out <- acf.ext1(wts=lgergnp, transf.type="perdiffsd", 
+                      perdiff.coeff = c(1.004, 0.981, 1.047, 0.969),
                       type="correlation", lag.max=12, showcat=TRUE, plot=FALSE)
    }
    \keyword{misc}
