@@ -406,6 +406,6 @@ plotpredpiar(out.pred)
 %\section[Concluding remarks]{Concluding remarks} \label{Sconcl}
 
 \clearpage  % tambien para meter tablas, figuras dentro de su seccion
-\bibliography{partsm.bib}
+\bibliography{partsm}
 
 \end{document}
