@@ -1,19 +1,4 @@
 
-R version 3.0.3 (2014-03-06) -- "Warm Puppy"
-Copyright (C) 2014 The R Foundation for Statistical Computing
-Platform: i686-pc-linux-gnu (32-bit)
-
-R est un logiciel libre livré sans AUCUNE GARANTIE.
-Vous pouvez le redistribuer sous certaines conditions.
-Tapez 'license()' ou 'licence()' pour plus de détails.
-
-R est un projet collaboratif avec de nombreux contributeurs.
-Tapez 'contributors()' pour plus d'information et
-'citation()' pour la façon de le citer dans les publications.
-
-Tapez 'demo()' pour des démonstrations, 'help()' pour l'aide
-en ligne ou 'help.start()' pour obtenir l'aide au format HTML.
-Tapez 'q()' pour quitter R.
 
 > library(partsm)
 > 
