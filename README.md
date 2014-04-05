@@ -1,16 +1,19 @@
 R package partsm 
 ========================================================
 
-This is the official page for the source code of R package *partsm*, featuring Periodic Autoregressive Time Series Models, available in CRAN: http://cran.r-project.org/web/packages/partsm/index.html
+This is the official page for the source code of R package *partsm*, featuring Periodic Autoregressive Time Series Models, available in [CRAN](http://cran.r-project.org/web/packages/partsm/index.html).
 
-For a detailed introductoin to periodic autoregressive models, and to the package, look at the vignette:
-http://cran.r-project.org/web/packages/partsm/vignettes/partsm.pdf
+For a detailed introduction to periodic autoregressive models, and to the package, look at the [vignette]
+(http://cran.r-project.org/web/packages/partsm/vignettes/partsm.pdf).
 
 A quick gallery of partsm
 -------------------------
 
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1.png) 
+
+
+
+<img src="figuresREADME/dataraw.png" title="plot of chunk dataraw" alt="plot of chunk dataraw" style="display: block; margin: auto;" />
 
 
 
@@ -61,6 +64,6 @@ A quick gallery of partsm
 
 
 ### Graphical Representation of the Periodically Differenced Data
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+<img src="figuresREADME/plotpdiff.png" title="plot of chunk plotpdiff" alt="plot of chunk plotpdiff" style="display: block; margin: auto;" />
 
 

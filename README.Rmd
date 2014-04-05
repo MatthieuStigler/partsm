@@ -1,16 +1,20 @@
 R package partsm 
 ========================================================
 
-This is the official page for the source code of R package *partsm*, featuring Periodic Autoregressive Time Series Models, available in CRAN: http://cran.r-project.org/web/packages/partsm/index.html
+This is the official page for the source code of R package *partsm*, featuring Periodic Autoregressive Time Series Models, available on [CRAN](http://cran.r-project.org/web/packages/partsm/index.html).
 
-For a detailed introductoin to periodic autoregressive models, and to the package, look at the vignette:
-http://cran.r-project.org/web/packages/partsm/vignettes/partsm.pdf
+For a detailed introduction to periodic autoregressive models, and to the package, look at the [vignette]
+(http://cran.r-project.org/web/packages/partsm/vignettes/partsm.pdf).
 
 A quick gallery of partsm
 -------------------------
 
 
-```{r, echo=FALSE, fig.height=4, fig.width=10}
+```{r options, echo=FALSE}
+opts_chunk$set(warning= FALSE, message=FALSE, fig.align="center", fig.path='figuresREADME/')
+```
+
+```{r dataraw, echo=FALSE, fig.height=4, fig.width=10}
 library(partsm)
 data("gergnp")
 lgergnp <- log(gergnp, base=exp(1))
@@ -45,7 +49,7 @@ Fsh.out
 ```
 
 ### Graphical Representation of the Periodically Differenced Data
-```{r, echo=FALSE}
+```{r plotpdiff, echo=FALSE}
     lgergnp <- log(gergnp, base=exp(1))
     detcomp <- list(regular=c(0,0,0), seasonal=c(1,0), regvar=0)
 
