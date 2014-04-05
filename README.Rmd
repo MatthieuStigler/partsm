@@ -1,0 +1,56 @@
+R package partsm 
+========================================================
+
+This is the official page for the source code of R package *partsm*, featuring Periodic Autoregressive Time Series Models, available in CRAN: http://cran.r-project.org/web/packages/partsm/index.html
+
+For a detailed introductoin to periodic autoregressive models, and to the package, look at the vignette:
+http://cran.r-project.org/web/packages/partsm/vignettes/partsm.pdf
+
+A quick gallery of partsm
+-------------------------
+
+
+```{r, echo=FALSE, fig.height=4, fig.width=10}
+library(partsm)
+data("gergnp")
+lgergnp <- log(gergnp, base=exp(1))
+#layout(matrix(c(1,1,2,2), 2, 2, byrow = TRUE))
+plot(gergnp, main="GNP in Germany (1960.1-1990.4)")
+#plot(lgergnp, main="Log GNP in Germany (1960.1-1990.4)")
+```
+
+
+### Fit a PAR(2) model with seasonal intercepts.
+
+```{r, echo=FALSE}
+detcomp <- list(regular=c(0,0,0), seasonal=c(1,0), regvar=0)
+out.par <- fit.ar.par(wts=lgergnp, type="PAR", detcomp=detcomp, p=2)
+out.par
+```
+
+### Test for periodic variation in the autoregressive parameters
+
+```{r, echo=FALSE}
+detcomp <- list(regular=c(0,0,0), seasonal=c(1,0), regvar=0)
+    out <- Fpar.test(wts=lgergnp, detcomp=detcomp, p=2)    
+out
+```
+
+### Test for seasonal heteroskedasticity 
+
+```{r, echo=FALSE}
+par2 <- fit.ar.par(wts=lgergnp, type="PAR", p=2, detcomp=detcomp)
+Fsh.out <- Fsh.test(res=residuals(par2@lm.par), s=frequency(lgergnp))
+Fsh.out
+```
+
+### Graphical Representation of the Periodically Differenced Data
+```{r, echo=FALSE}
+    lgergnp <- log(gergnp, base=exp(1))
+    detcomp <- list(regular=c(0,0,0), seasonal=c(1,0), regvar=0)
+
+    ## Fit a PIAR(2) model with seasonal intercepts.
+    out.piar <- fit.piar(wts=lgergnp, detcomp=detcomp, p=2)
+    plotpdiff(out.piar)
+```
+
