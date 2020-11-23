@@ -1,5 +1,11 @@
 importFrom(methods, setClass, setMethod)
-
+importFrom("graphics", "layout", "par", "text")
+importFrom("methods", "new", "show")
+importFrom("stats", "acf", "as.formula", "coef", "cycle", "end",
+             "frequency", "lm", "monthplot", "na.exclude", "na.omit",
+             "nls", "pf", "pnorm", "printCoefmat", "residuals", "sd",
+             "start", "time", "ts", "ts.plot", "update")
+             
 export(acf.ext1, fit.ar.par, fit.piar, Fnextp.test, Fpar.test, Fpari.piar.test, Fsh.test,
        LRurpar.test, plotpdiff, plotpredpiar, predictpiar)
 
@@ -7,3 +13,4 @@ exportClasses("fit.partsm", "fit.piartsm", "Ftest.partsm", "LRur.partsm", "MVPAR
               "MVPIAR", "pred.piartsm")
 
 exportMethods("show", "summary", "PAR.MVrepr")
+
