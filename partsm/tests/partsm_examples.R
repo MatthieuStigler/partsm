@@ -254,7 +254,7 @@ summary(Fsh.out)
 
 ## Fit a PIAR(2) model.
 out.piar <- fit.piar(wts=lgergnp, detcomp=detcomp, p=2)
-summary(out.piar, digits=2)
+summary(out.piar, digits=1)
 
 ## Fpari.piar.test
 Fpari1.out <- Fpari.piar.test(wts=lgergnp, detcomp=detcomp, p=2, type="PARI1")
@@ -264,7 +264,7 @@ options(digits=3)
 
 ## Fit a PIAR(2) model with seasonal intercepts.
 out.piar <- fit.piar(wts=lgergnp, detcomp=detcomp, p=2)
-summary(out.piar, digits=2)
+summary(out.piar, digits=1)
 
 ## Test for a single unit root in a PAR(2) model with seasonal intercepts.
 out.LR <- LRurpar.test(wts=lgergnp, detcomp=detcomp, p=2)
