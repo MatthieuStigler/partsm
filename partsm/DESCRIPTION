@@ -1,11 +1,13 @@
 Package: partsm
-Version: 1.1-2
+Version: 1.1-30001
 Date: 2014-03-30
 Title: Periodic Autoregressive Time Series Models
-Author: Javier Lopez-de-Lacalle
-Maintainer: Matthieu Stigler <Matthieu.Stigler@gmail.com>
+Authors@R: c(
+  person("Javier", "Lopez-de-Lacalle", role=c("aut", "cph"), email="javlacalle@yahoo.es"),
+  person("Matthieu", "Stigler", role="cre", email="Matthieu.Stigler@gmail.com",
+          comment =c(ORCID="0000-0002-6802-4290")))
 Imports: methods
 Depends: R (>= 2.0.0)
-Description: This package performs basic functions to fit and predict periodic autoregressive time series models. These models are discussed in the book P.H. Franses (1996) "Periodicity and Stochastic Trends in Economic Time Series", Oxford University Press. Data set analyzed in that book is also provided. NOTE: the package was orphaned during several years. It is now only maintained, but no major enhancement are expected, and the maintainer cannot provide any support. 
+Description: This package performs basic functions to fit and predict periodic autoregressive time series models. These models are discussed in the book P.H. Franses (1996) "Periodicity and Stochastic Trends in Economic Time Series", Oxford University Press. Data set analyzed in that book is also provided. NOTE: the package was orphaned during several years. It is now only maintained, but no major enhancements are expected, and the maintainer cannot provide any support. 
 License: GPL-2
 URL: http://github.com/MatthieuStigler/partsm
