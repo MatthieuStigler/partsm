@@ -83,8 +83,8 @@ Msts <- function(wts)  ##~ hacer que trate a las columnas como ts, ts.union.
 #### Deprecated bbplot (old code)
 ################################################
 
-##~ Ver hacer método hasta obtener seas.data.
-##~ ver usar cbind.ts.
+## Ver hacer metodo hasta obtener seas.data.
+## ver usar cbind.ts.
 # bbplot <- function(wts)
 # {
 #   colour <- c("SlateBlue","SeaGreen","red","magenta")
