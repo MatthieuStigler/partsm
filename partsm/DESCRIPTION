@@ -8,6 +8,6 @@ Authors@R: c(
           comment =c(ORCID="0000-0002-6802-4290")))
 Imports: methods
 Depends: R (>= 2.14.0)
-Description: This package performs basic functions to fit and predict periodic autoregressive time series models. These models are discussed in the book P.H. Franses (1996) "Periodicity and Stochastic Trends in Economic Time Series", Oxford University Press. Data set analyzed in that book is also provided. NOTE: the package was orphaned during several years. It is now only maintained, but no major enhancements are expected, and the maintainer cannot provide any support. 
+Description: Basic functions to fit and predict periodic autoregressive time series models. These models are discussed in the book P.H. Franses (1996) "Periodicity and Stochastic Trends in Economic Time Series", Oxford University Press. Data set analyzed in that book is also provided. NOTE: the package was orphaned during several years. It is now only maintained, but no major enhancements are expected, and the maintainer cannot provide any support. 
 License: GPL-2
 URL: https://github.com/MatthieuStigler/partsm
