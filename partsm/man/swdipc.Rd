@@ -13,7 +13,7 @@
     data ("swdipc")
   }
 
-  \source{P.H. Franses's homepage: \url{http://www.few.eur.nl/few/people/franses/}.}
+  \source{Previously available on P.H. Franses's homepage: \url{https://www.eur.nl/en/people/philip-hans-franses}.}
 
   \references{
     B. Assarson (1991): 'The Stochastic Behaviour of Durables and Nondurables Consumption in Sweden', Working 

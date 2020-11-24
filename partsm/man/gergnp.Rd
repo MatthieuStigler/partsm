@@ -14,7 +14,7 @@
     data ("gergnp")
   }
 
-  \source{P.H. Franses's homepage: \url{http://www.few.eur.nl/few/people/franses/}.}
+  \source{Previously available on P.H. Franses's homepage: \url{https://www.eur.nl/en/people/philip-hans-franses}.}
 
   \references{
     P.H. Franses: Periodicity and Stochastic Trends in Economic Time Series (Oxford University Press, 1996).
