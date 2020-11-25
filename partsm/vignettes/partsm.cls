@@ -43,7 +43,7 @@
 \ProcessOptions
 \LoadClass[11pt,a4paper,twoside]{article}
 %% required packages
-\RequirePackage{graphicx,a4wide,color,hyperref,ae,fancyvrb}
+\RequirePackage{graphicx,color,hyperref,ae,fancyvrb}%%a4wide
 \RequirePackage[T1]{fontenc}
 
 %% bibliography
