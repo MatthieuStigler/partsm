@@ -3,7 +3,7 @@
 %\VignetteIndexEntry{partsm vignette}
 
 \author{Javier L\'opez-de-Lacalle
-\thanks{I acknowledge Matthieu Stigler the upgrade and maintenance of the package.}
+\thanks{I acknowledge Matthieu Stigler's contribution for the upgrade and maintenance of the package.}
 \\ Universidad del Pa\'is Vasco \\ \email{javlacalle@yahoo.es}}
 \title{Periodic Autoregressive Time Series Models in \proglang{R}: The \pkg{partsm} Package.}
 %
