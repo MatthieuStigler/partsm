@@ -1,5 +1,5 @@
 importFrom(methods, setClass, setMethod)
-importFrom("graphics", "layout", "par", "text")
+importFrom("graphics", "layout", "par", "text", "plot")
 importFrom("methods", "new", "show")
 importFrom("stats", "acf", "as.formula", "coef", "cycle", "end",
              "frequency", "lm", "monthplot", "na.exclude", "na.omit",
