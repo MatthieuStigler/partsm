@@ -4,8 +4,7 @@
 
   \description{
     This function performs predictions for a restricted periodic autoregressive model. This version
-    considers PIAR models up to order 2 with seasonal intercepts. It is implemented for quarterly oberved
-    data.
+    considers PIAR models up to order 2 with seasonal intercepts. It is implemented for quarterly observed data.
   }
 
   \usage{

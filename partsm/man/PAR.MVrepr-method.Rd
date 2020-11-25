@@ -15,7 +15,7 @@
   \section{Methods}{
     \describe{
       \item{object = "fit.partsm".}{Provides a list object containing the estimated matrices \eqn{Phi0},
-        \eqn{Phi1}, the eigen values of \eqn{Phi0^{-1} \%*\% Phi1}, and the time-varing impact of accumulation
+        \eqn{Phi1}, the eigen values of \eqn{Phi0^{-1} \%*\% Phi1}, and the time-varying impact of accumulation
         of shocks calculated as \eqn{Phi0^{-1} \%*\% Phi1 \%*\% Phi0^{-1}}. See details below.}
       \item{object = "fit.piartsm".}{Provides the same list as in the latter case. See details below.}
     }

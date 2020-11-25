@@ -14,12 +14,11 @@
 
   \arguments{
     \item{wts}{a univariate time series object.}
-    \item{detcomp}{a vector indicating the deterministic components included in the auxiliar regression. See
+    \item{detcomp}{a vector indicating the deterministic components included in the auxiliary regression. See
       the corresponding item in \code{\link{fit.ar.par}}.}
     \item{p}{the order of the initial AR or PAR model. In this version PAR models up to order 2 with seasonal
       intercepts are considered.}
-    \item{type}{a character string indicating which restriction should be tested. \code{"PARI1"} inidicates
-      that the unit root is tested whereas \code{"PARI-1"} test for the unit root -1.}
+    \item{type}{a character string indicating which restriction should be tested. \code{"PARI1"} indicates that the unit root is tested whereas \code{"PARI-1"} test for the unit root -1.}
   }
 
   \details{

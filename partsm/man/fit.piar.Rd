@@ -12,10 +12,10 @@
 
   \arguments{
     \item{wts}{a univariate time series object.}
-    \item{detcomp}{a vector indicating the deterministic components included in the auxiliar regression. See
+    \item{detcomp}{a vector indicating the deterministic components included in the auxiliary regression. See
       the corresponding item in \code{\link{fit.ar.par}}.}
     \item{p}{the order of the PAR model. In this version first and second order are considered.}
-    \item{initvalues}{by default, initial values are computed for the non-linear modeal. However, in this
+    \item{initvalues}{by default, initial values are computed for the non-linear model. However, in this
       version there may be cases in which the estimates do not converge, giving an error message. In this
       case, a numeric vector with initial values guessed by the user can be included.}
   }

@@ -12,7 +12,7 @@
 
   \arguments{
     \item{wts}{a univariate time series object.}
-    \item{detcomp}{a vector indicating the deterministic components included in the auxiliar regression. See
+    \item{detcomp}{a vector indicating the deterministic components included in the auxiliary regression. See
       the corresponding item in \code{\link{fit.ar.par}}.}
     \item{p}{the order of the initial AR or PAR model.}
   }

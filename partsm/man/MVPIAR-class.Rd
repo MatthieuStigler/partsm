@@ -9,11 +9,11 @@
 
   \section{Slots}{
     \describe{
-      \item{\code{Phi0}:}{Object of class \code{"matrix"}: Matrix for the multivariate representasio. See
+      \item{\code{Phi0}:}{Object of class \code{"matrix"}: Matrix for the multivariate representation. See
         details in \code{\link{PAR.MVrepr-methods}}.}
-      \item{\code{Phi1}:}{Object of class \code{"matrix"}: Matrix for the multivariate representasio. See
+      \item{\code{Phi1}:}{Object of class \code{"matrix"}: Matrix for the multivariate representation. See
         details in \code{\link{PAR.MVrepr-methods}}.}
-      \item{\code{Gamma.eigenvalues}:}{Object of class \code{"numeric"}: Eigen valus of the matrix
+      \item{\code{Gamma.eigenvalues}:}{Object of class \code{"numeric"}: Eigenvalues of the matrix
         \eqn{Phi0^{-1} \%*\% Phi1}.}
       \item{\code{tvias}:}{Object of class \code{"matrix"}: Time-varying impact of accumulation of shocks
         calculated as \eqn{Phi0^{-1} \%*\% Phi1 \%*\% Phi0^{-1}}.}

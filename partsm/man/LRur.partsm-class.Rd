@@ -11,7 +11,7 @@
   \section{Slots}{
     \describe{
       \item{\code{test.label}:}{Object of class \code{"character"}: A label to identify the test.}
-      \item{\code{test.name}:}{Object of class \code{"character"}: A one-line descriptio of the test.}
+      \item{\code{test.name}:}{Object of class \code{"character"}: A one-line description of the test.}
       \item{\code{p}:}{Object of class \code{"numeric"}: The lag order parameter of the model.}
       \item{\code{LR}:}{Object of class \code{"numeric"}: The LR statistic.}
       \item{\code{LRtau}:}{Object of class \code{"numeric"}: The one side test statistic.}

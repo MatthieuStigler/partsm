@@ -11,7 +11,7 @@
   \section{Slots}{
     \describe{
       \item{\code{p}:}{Object of class \code{"numeric"}: The order of the PIAR model.}
-      \item{\code{nls.parameters}:}{Object of class \code{"matrix"}: Estimated coefficicents of the
+      \item{\code{nls.parameters}:}{Object of class \code{"matrix"}: Estimated coefficients of the
         non-linear PIAR model.}
       \item{\code{nls.res}:}{Object of class \code{"numeric"}: Residuals of the non-linear PIAR model.}
       \item{\code{par.coeffs}:}{Object of class \code{"matrix"}: Periodic autoregressive parameters

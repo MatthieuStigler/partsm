@@ -61,7 +61,7 @@ The remaining of the paper is organized as follows. Section \ref{Sreview} briefl
 
 \section[Theoretical overview]{Theoretical overview} \label{Sreview}
 
-This section reviews the main theoretical concerns entailed in the process of fitting periodic models and testing for a unit root in PAR models. To have a further insight into this models see \citet{Franses:96}, \citet{Franses-Paap:04}, and references therein. PAR models are intended for seasonally obeserved data, particularly quarterly and monthly data. To save space, hereafter we will consider quarterly data, $S=4$.
+This section reviews the main theoretical concerns entailed in the process of fitting periodic models and testing for a unit root in PAR models. To have a further insight into this models see \citet{Franses:96}, \citet{Franses-Paap:04}, and references therein. PAR models are intended for seasonally observed data, particularly quarterly and monthly data. To save space, hereafter we will consider quarterly data, $S=4$.
 
 \subsection[Notation and representation of PAR models]{Notation and representation of PAR models}
 
@@ -92,7 +92,7 @@ where $\Phi_0, \Phi_1,...,\Phi_P$ are $(4\times4)$ parameter matrices with the p
 %
 for $i,j=1,2,3,4$ and $k=1,2,...,P$. The univariate model of order $p$ turns into a multivariate model of order $P=1+[(p-1)/4]$, where $[x]$ is the integer part of $x$.
 
-Notice that in (\ref{PAR}) each lag leads to previous observations in the seasonally observed data, whereas in (\ref{PARVQ}) lags have effect on the anually observed data in each season. That is, $y_{t-1}$ is the observation inmediately previous to $y_t$, and $Y_{s,T-1}$ is the observation in season $s$ previous to the year $T$.
+Notice that in (\ref{PAR}) each lag leads to previous observations in the seasonally observed data, whereas in (\ref{PARVQ}) lags have effect on the annually observed data in each season. That is, $y_{t-1}$ is the observation immediately previous to $y_t$, and $Y_{s,T-1}$ is the observation in season $s$ previous to the year $T$.
 
 Finally, if the roots of the factorized AR(p) model related to each season are all real values, the PAR(p) model can be represented as
 %
@@ -185,7 +185,7 @@ The first issue we will deal with is the selection of the order for the periodic
 
 The function \code{fit.ar.par} fits a PAR model with seasonal intercepts and stores the results in the \code{lmpar} object of class \code{fit.partsm}. Then, the AIC and BIC statistics are computed by means of the function \code{AIC} available in the \pkg{base} \proglang{R}-package. 
 
-Finally, the null hypothesis $\phi_{(p+1),s}=0$ is checked with \code{Fnextp.test}. The $F$-statistics and the correspondig $p$-values are stored in \code{Fnextp} and \code{Fpval}, respectively. These statistics are computed for PAR models with seasonal intercepts. 
+Finally, the null hypothesis $\phi_{(p+1),s}=0$ is checked with \code{Fnextp.test}. The $F$-statistics and the corresponding $p$-values are stored in \code{Fnextp} and \code{Fpval}, respectively. These statistics are computed for PAR models with seasonal intercepts. 
 
 <<>>=
 detcomp <- list(regular=c(0,0,0), seasonal=c(1,0), regvar=0)
@@ -222,7 +222,7 @@ $F(\phi_{p+1,s}=0)$ && $8.54$ & $0.80$ & $1.35$ & $2.91$ \\
 
 \subsection[Test for periodic variation in the autoregressive parameters]{Test for periodic variation in the autoregressive parameters}
 
-Once a PAR model has been defined, we can check for periodicity in the autoregressive parameters of the model. Following the notation in (\ref{PAR}), the function \code{Fpar.test} performs an $F$-test for the null hypothesis of non-peridodicity, $\phi_{is}=\phi_i$ for $s=1,2,...,4$ and $i=1,2,...,p$.
+Once a PAR model has been defined, we can check for periodicity in the autoregressive parameters of the model. Following the notation in (\ref{PAR}), the function \code{Fpar.test} performs an $F$-test for the null hypothesis of non-periodicity, $\phi_{is}=\phi_i$ for $s=1,2,...,4$ and $i=1,2,...,p$.
 
 When the null hypothesis is imposed an AR(p) is estimated, whereas in the alternative a PAR(p) model is fitted. Then, based on the residual sum of squares of each model, the $F$-statistic is computed. When four seasonal intercepts are included the statistic follows an $F$-distribution with (3\,p, n-(4+4\,p)) degrees of freedom, where $n$ is the number of observations.
    
@@ -254,7 +254,7 @@ Results in the code above show that seasonal heteroskedasticity is rejected at t
 Taking the multivariate representation, as in equation (\ref{PARVQ}), we can get the eigenvalues of the estimated $\Gamma \equiv \Phi_0^{-1}\Phi_1$ matrix. These eigenvalues provide a first 
 view on the prospective unit roots.  
 
-The function \code{PAR.MVrepr} applied on the \code{out.par} object of class \code{fit.partsm} below, shows the matrices defined is Secion \ref{Sreview} for the multivariate representation and some complementary information. 
+The function \code{PAR.MVrepr} applied on the \code{out.par} object of class \code{fit.partsm} below, shows the matrices defined is Section \ref{Sreview} for the multivariate representation and some complementary information. 
 
 <<>>=
 out.par <- fit.ar.par(wts=lgergnp, type="PAR", detcomp=detcomp, p=2)
@@ -297,7 +297,7 @@ The reader can check that the seasonal unit root -1 is rejected as well, as we c
 
 \subsection[Autocorrelation function for several transformations of the original data]{Autocorrelation function for several transformations of the original data}
 
-In this subsection we will take a look at the nonperiodic autocorrelation function. The function \code{acf.ext1} computes the ACF for several transformations of the data\footnote{See the standard help pages to see what transformations are considered.}. Table \ref{Tacf} shows the ACF of the original data, the first differenced seriesand the periodically differenced series, removing four seasonal intercepts in the las two cases. According to the results is sections above other transformations are not worth considering. 
+In this subsection we will take a look at the nonperiodic autocorrelation function. The function \code{acf.ext1} computes the ACF for several transformations of the data\footnote{See the standard help pages to see what transformations are considered.}. Table \ref{Tacf} shows the ACF of the original data, the first differenced series and the periodically differenced series, removing four seasonal intercepts in the last two cases. According to the results is sections above other transformations are not worth considering. 
 
 \begin{table}[ht]
 \begin{minipage}{\textwidth}
@@ -344,7 +344,7 @@ The periodically differenced series and the corresponding seasonal path are disp
 
 The $\Phi_0$ and $\Phi_1$ matrices can be used to compute the impact of accumulation of the shocks $\epsilon_t$ defined as $\Gamma\,\Phi_0^{-1}$, where $\Gamma$ is $\Phi_0^{-1} \Phi_0$. That row in which the values of the impact matrix are the highest, entails that the corresponding season undergoes more severe impacts from the accumulation of all shocks. Hence, it is more likely to display fluctuations in the stochastic trend. Likewise, the column with the highest values is related to the season that has the largest long-run impact. Put in other words, the impact matrix allow the practitioner to get an idea about how the stochastic trend and the seasonal fluctuations are related.
 
-To derive those matrices, the model (\ref{PIAR2}) is estimated with \code{fit.piar} is used. This function requires some values to initialize the non-linear estimator. By default, initial values are computed for the non-linear modeal. However, in this version there may be cases in which the estimates do not converge, giving an error message. In this case, a numeric vector with initial values guessed by the user can be included. The code below let \code{fit.piar} to compute initial values, hence, there is no need to include a vector called \code{initvalues} as an argument.
+To derive those matrices, the model (\ref{PIAR2}) is estimated with \code{fit.piar} is used. This function requires some values to initialize the non-linear estimator. By default, initial values are computed for the non-linear model. However, in this version there may be cases in which the estimates do not converge, giving an error message. In this case, a numeric vector with initial values guessed by the user can be included. The code below let \code{fit.piar} to compute initial values, hence, there is no need to include a vector called \code{initvalues} as an argument.
 
 <<>>=
 out.piar <- fit.piar(wts=lgergnp, detcomp=detcomp, p=2)
@@ -369,7 +369,7 @@ Obviously, the results above also show that the PIAR model contains a root that 
 
 The function \code{predictpiar} makes prediction based on PIAR model of order up to 2. By default seasonal intercepts are included. This function computes one-year-ahead forecasting on the basis of the multivariate representation. The forecast for the year $T+$ is $Y_{T+1} = \Phi_0^{-1}\,\mu + \Phi_0^{-1}\,\Phi_1\,Y_T$. The confidence intervals are computed deriving the multivariate moving averages representation from the matrices for the multivariate PIAR model. 
 
-The code below peforms 24 ahead forecasts in the PIAR(2) model. For programming convenience, the number of forescasts, \code{hpred}, must be a multipple of the periodicity of the data. The output of this function provides an object of class \code{pred.piartsm} containing the forecast, the standard errors, the upper and lower 95 per cent confidence bound, as well as the input, i.e., the original data, the order of the model, and the number of predictions.
+The code below performs 24 ahead forecasts in the PIAR(2) model. For programming convenience, the number of forecasts, \code{hpred}, must be a multiple of the periodicity of the data. The output of this function provides an object of class \code{pred.piartsm} containing the forecast, the standard errors, the upper and lower 95 per cent confidence bound, as well as the input, i.e., the original data, the order of the model, and the number of predictions.
 
 <<>>=
 out.pred <- predictpiar(wts=lgergnp, p=2, hpred=24)

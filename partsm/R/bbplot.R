@@ -48,7 +48,7 @@ bbplot <- function(wts, colour=c("SlateBlue","SeaGreen","red","magenta"))
 }
 
 ################################################
-#### Auxiliary function Msts (from uroot package)
+#### Auxilliary function Msts (from uroot package)
 ################################################
 
 

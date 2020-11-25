@@ -4,7 +4,7 @@
 
   \description{
     This function displays a plot of the predictions and the corresponding 95 per cent confidence intervals
-    based on a PIAR model. In this version, this function is implemeted for quarterly observed data, PIAR
+    based on a PIAR model. In this version, this function is implemented for quarterly observed data, PIAR
     models up to order 2 are considered, and seasonal intercepts are included by default.
   }
 

@@ -12,7 +12,7 @@
 
   \arguments{
     \item{wts}{a univariate time series object.}
-    \item{detcomp}{a vector indicating the deterministic components included in the auxiliar regression. See
+    \item{detcomp}{a vector indicating the deterministic components included in the auxiliary regression. See
       the corresponding item in \code{\link{fit.ar.par}}.}
     \item{p}{the order of the PAR model. In this version first and second order models are considered.}
   }
@@ -20,7 +20,7 @@
   \details{
     In a quarterly time series, the PAR(1) model, \eqn{y_t = \alpha_{s,1} y_{t-1} + \epsilon_t} with
     \eqn{\epsilon_t ID(0,1)}, contains a unit root if \eqn{g(\alpha) = \Pi_{s=1}^4 \alpha_{s,1} = 1}. To test
-    this hypothesis, a likelihood ratio test, \code{LR}, is built as the logarithm of the ratio beteween the
+    this hypothesis, a likelihood ratio test, \code{LR}, is built as the logarithm of the ratio between the
     residual sum of squares in the unrestricted and the restricted model, weighted by the number of
     observations.
 
@@ -46,7 +46,7 @@
   \author{Javier Lopez-de-Lacalle \email{javlacalle@yahoo.es}.}
 
   \references{
-    H.P. Boswijk and P.H. Franses (1996), Unit roots in periodic autorregressions. \emph{Journal of Time
+    H.P. Boswijk and P.H. Franses (1996), Unit roots in periodic autoregressions. \emph{Journal of Time
     series Analysis}, \bold{17}, pp. 221-245.
 
     P.H. Franses: Periodicity and Stochastic Trends in Economic Time Series (Oxford University Press, 1996).

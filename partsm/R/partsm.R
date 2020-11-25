@@ -1,5 +1,5 @@
 
-## Auxiliar functions.
+## Auxiliary functions.
 
 ret <- function(vari, k)
 {
@@ -852,7 +852,7 @@ setMethod("show", "MVPAR",
     print(Phi1); cat("\n")
     cat("\n  Eigen values of Gamma = Phi0^{-1} %*% Phi1:\n")
     cat(Gev, "\n")
-    cat("\n  Time varing accumulation of shocks:\n")
+    cat("\n  Time varying accumulation of shocks:\n")
     print(tvias); cat("\n")
   }
 )
@@ -877,7 +877,7 @@ setMethod("show", "MVPIAR",
     print(Phi1); cat("\n")
     cat("\n  Eigen values of Gamma = Phi0^{-1} %*% Phi1:\n")
     cat(Gev, "\n")
-    cat("\n  Time varing accumulation of shocks:\n")
+    cat("\n  Time varying accumulation of shocks:\n")
     print(tvias); cat("\n")
   }
 )
@@ -913,7 +913,7 @@ setMethod("show", "MVPIAR",
 
   Gamma <- solve(Phi0) %*% Phi1
   Phi01ev <- eigen(Gamma, only.values = TRUE)$values
-  tvias <- Gamma %*% solve(Phi0)  # Time-varing impact of accumulation of shocks
+  tvias <- Gamma %*% solve(Phi0)  # Time-varying impact of accumulation of shocks
 
   list(Phi0=Phi0, Phi1=Phi1, Phi01ev=Phi01ev, tvias=tvias)
 }
