@@ -181,7 +181,7 @@
   Eigen values of Gamma = Phi0^{-1} %*% Phi1:
 0.965 0.036 0 0 
 
-  Time varing accumulation of shocks:
+  Time varying accumulation of shocks:
                         
  0.173 1.182 0.492 1.360
  0.140 1.158 0.573 1.064
@@ -224,7 +224,7 @@
   Eigen values of Gamma = Phi0^{-1} %*% Phi1:
 0.965 0.036 0 0 
 
-  Time varing accumulation of shocks:
+  Time varying accumulation of shocks:
                         
  0.173 1.182 0.492 1.360
  0.140 1.158 0.573 1.064
@@ -258,7 +258,7 @@
   Eigen values of Gamma = Phi0^{-1} %*% Phi1:
 1 0 0 0 
 
-  Time varing accumulation of shocks:
+  Time varying accumulation of shocks:
                         
  1.000 1.040 1.140 1.025
  0.962 1.000 1.097 0.985
