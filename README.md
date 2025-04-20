@@ -3,8 +3,7 @@ R package partsm
 
 This is the official page for the source code of R package *partsm*, featuring Periodic Autoregressive Time Series Models, available in [CRAN](http://cran.r-project.org/web/packages/partsm/index.html).
 
-For a detailed introduction to periodic autoregressive models, and to the package, look at the [vignette]
-(http://cran.r-project.org/web/packages/partsm/vignettes/partsm.pdf).
+For a detailed introduction to periodic autoregressive models, and to the package, look at the [vignette](http://cran.r-project.org/web/packages/partsm/vignettes/partsm.pdf).
 
 A quick gallery of partsm
 -------------------------
