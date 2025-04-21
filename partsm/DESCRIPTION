@@ -1,6 +1,6 @@
 Package: partsm
-Version: 1.1-3
-Date: 2020-11-24
+Version: 1.1-4
+Date: 2025-04-21
 Title: Periodic Autoregressive Time Series Models
 Authors@R: 
     c(person(given = "Javier",
