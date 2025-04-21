@@ -308,7 +308,7 @@ fit.piar <- function(wts, detcomp, p, initvalues=NULL)
 
 # Compute initial values for the nls model.
 
-  if(class(initvalues) == "NULL")
+  if(inherits(initvalues, "NULL"))
   {
   if(p==1)
     init <- lm(ML[,1] ~ 0+Mreg)$coef[-s]
@@ -545,7 +545,7 @@ predictpiar <- function(wts, p, hpred)
 }
 
 plotpredpiar <- function(x){
-  if (!(class(x) == "pred.piartsm"))
+  if (!inherits(x, "pred.piartsm"))
     stop("\n Object is not of class 'pred.piartsm'.\n")
 
   opar <- par(las=1)
@@ -775,7 +775,7 @@ setMethod("show", "pred.piartsm",
 
 PAR.MVrepr <- function(object)
 {
-   if(class(object) != "fit.partsm" || class(object) != "fit.piartms")
+   if(!inherits(object, c("fit.par sm", "fit.piartms")))
      stop("Object is not of class 'fit.partsm' or 'fit.piartsm'.\n")
 }
 
