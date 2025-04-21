@@ -258,9 +258,10 @@ summary(out.piar, digits=1)
 
 ## Fpari.piar.test
 Fpari1.out <- Fpari.piar.test(wts=lgergnp, detcomp=detcomp, p=2, type="PARI1")
-options(digits=3)
-summary(Fpari1.out)
-options(digits=3)
+Fpari1.out
+# options(digits=3)
+# summary(Fpari1.out)
+# options(digits=3)
 
 ## Fit a PIAR(2) model with seasonal intercepts.
 out.piar <- fit.piar(wts=lgergnp, detcomp=detcomp, p=2)

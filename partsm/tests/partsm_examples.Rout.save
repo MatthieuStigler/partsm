@@ -1,4 +1,21 @@
 
+R version 4.5.0 (2025-04-11) -- "How About a Twenty-Six"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
 
 > library(partsm)
 > 
@@ -895,13 +912,13 @@ F-statistic:  123 on 8 and 114 DF,  p-value: <2e-16
 ----
 ----
 ## Fitted model for the alternative hypothesis.
-    Estimate        Std. Error        t value        Pr(>|t|)    
- Min.   :-0.676   Min.   :0.0095   Min.   :-4.4   Min.   :0.000  
- 1st Qu.:-0.198   1st Qu.:0.0309   1st Qu.:-1.1   1st Qu.:0.000  
- Median : 0.338   Median :0.1204   Median : 2.3   Median :0.001  
- Mean   : 0.242   Mean   :0.0996   Mean   :25.4   Mean   :0.101  
- 3rd Qu.: 0.689   3rd Qu.:0.1534   3rd Qu.:46.8   3rd Qu.:0.026  
- Max.   : 1.025   Max.   :0.1950   Max.   :96.0   Max.   :0.953  
+    Estimate        Std. Error        t value         Pr(>|t|)      
+ Min.   :-0.676   Min.   :0.0095   Min.   :-4.44   Min.   :0.00000  
+ 1st Qu.:-0.198   1st Qu.:0.0309   1st Qu.:-1.13   1st Qu.:0.00000  
+ Median : 0.338   Median :0.1204   Median : 2.26   Median :0.00109  
+ Mean   : 0.242   Mean   :0.0996   Mean   :25.41   Mean   :0.10129  
+ 3rd Qu.: 0.689   3rd Qu.:0.1534   3rd Qu.:46.76   3rd Qu.:0.02555  
+ Max.   : 1.025   Max.   :0.1950   Max.   :95.99   Max.   :0.95332  
 > options(digits=3)
 > 
 > ## Fit a PIAR(2) model with seasonal intercepts.
@@ -1027,5 +1044,5 @@ MDT..SeasDum.3  MDT..SeasDum.4
 > options(digits=7)
 > 
 > proc.time()
-utilisateur     système      écoulé 
-      1.016       0.176       1.208 
+   user  system elapsed 
+  0.266   0.033   0.290 
